@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -64,6 +64,11 @@
           </column>
           <column>
            <property name="text">
+            <string>Oddział</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
             <string>Data</string>
            </property>
           </column>
@@ -89,7 +94,7 @@
           </column>
           <column>
            <property name="text">
-            <string>Pacjent</string>
+            <string>Wiek</string>
            </property>
           </column>
           <column>
@@ -107,11 +112,6 @@
             <string>Zabieg</string>
            </property>
           </column>
-          <column>
-           <property name="text">
-            <string>Oddział</string>
-           </property>
-          </column>
          </widget>
         </item>
        </layout>
@@ -120,20 +120,31 @@
        <attribute name="title">
         <string>Przypisanie lekarzy</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QTableWidget" name="przypisaniaLekarzyTable">
-          <column>
-           <property name="text">
-            <string>Lekarz</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Oddział</string>
-           </property>
-          </column>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QPushButton" name="dodajPrzypisanieButton">
+              <property name="text">
+               <string>Dodaj</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="usunPrzypisanieButton">
+              <property name="text">
+               <string>Usuń</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QTableView" name="daneLekarzyTable"/>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
