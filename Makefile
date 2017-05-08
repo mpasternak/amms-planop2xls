@@ -48,7 +48,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 
 lint: ## check style with flake8
-	flake8 amms_planop2xls tests
+	flake8 amms_planop2xls tests --exclude=amms_planop2xls/mainwindow.py
 
 test: ## run tests quickly with the default Python
 	py.test
