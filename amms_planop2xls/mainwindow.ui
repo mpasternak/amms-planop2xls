@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -130,12 +130,25 @@
               <property name="text">
                <string>Dodaj</string>
               </property>
+              <property name="icon">
+               <iconset theme="document-new"/>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="usunPrzypisanieButton">
               <property name="text">
                <string>Usuń</string>
+              </property>
+              <property name="icon">
+               <iconset theme="document-delete"/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="odswiezPrzypisaniaButton">
+              <property name="text">
+               <string>Odśwież</string>
               </property>
              </widget>
             </item>

@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 import re
+from pathlib import Path
 
+from PyQt5 import QtCore
 from drunken_child_in_the_fog.core import DrunkenChildInTheFog
 from pdf_table_extractor.pdf_table_extractor import extract_table_data
 
@@ -11,6 +13,22 @@ pacjent_regex = re.compile(
 
 data_zabiegu_regex = re.compile(
     "Plan operacyjny: na dzień (?P<data>\d+\.\d+\.\d+) .*")
+
+
+def datadir():
+    add = ""
+    cnt = 0
+    while True:
+        ret = Path(QtCore.QDir.homePath()) / (".amms-planop2xls%s" % add)
+        if not ret.exists():
+            ret.mkdir()
+
+        if ret.exists():
+            if not ret.is_dir():
+                cnt += 1
+                add = "-%i" % cnt
+                continue
+            return str(ret)
 
 
 def pobierz_plan(fn):
@@ -41,7 +59,7 @@ def pobierz_plan(fn):
 
             tabela.append([
                 aktualna_sala,
-                "TODO",
+                "",
                 data_zabiegu,
                 row[1],
                 m.group("imienazwisko").strip(),

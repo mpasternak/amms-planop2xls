@@ -1,77 +1,179 @@
 # -*- coding: utf-8 -*-
 
-import re
 import sys
+from pathlib import Path
 
-from PyQt5 import QtWidgets, QtCore, QtGui
+import xlwt
+from PyQt5 import QtWidgets, QtCore
 
 from .mainwindow import Ui_MainWindow
+from .storage import get_db, get_model, oddzial_dla_lekarza
 from .util import pobierz_plan
-from .storage import get_db, get_model
+
+QFileDialog_platform_kwargs = {}
+if sys.platform == 'darwin':
+    QFileDialog_platform_kwargs = dict(
+        options=QtWidgets.QFileDialog.DontUseNativeDialog)
+
 
 class AMMSPlanOp2XLS(Ui_MainWindow):
     def __init__(self, win):
         Ui_MainWindow.__init__(self)
         self.window = win
         self.setupUi(win)
-
+        self.data = ""
         self.wczytajPDFButton.clicked.connect(self.wczytajPDFDialog)
+        self.zapiszXLSButton.clicked.connect(
+            self.zapiszXLSWybierzPlikDocelowy)
         #
         # # Connect "add" button with a custom function (addInputTextToListbox)
         # self.addBtn.clicked.connect(self.addInputTextToListbox)
 
+        # db
+        self.db = get_db()
+        if not self.db:
+            QtWidgets.QMessageBox.critical(
+                None,
+                "Błąd bazy danych",
+                "Nie można otworzyć bazy danych.",
+                QtWidgets.QMessageBox.Close)
+            QtCore.QCoreApplication.exit(-1)
+            return
+
+        self.model = get_model(self.window, self.db)
+        self.daneLekarzyTable.setModel(self.model)
+        self.daneLekarzyTable.hideColumn(0)
+        self.daneLekarzyTable.setSelectionBehavior(
+            QtWidgets.QAbstractItemView.SelectRows)
+
+        self.model.dataChanged.connect(self.uzupelnijLekarzy)
+
+        self.dodajPrzypisanieButton.clicked.connect(self.dodajLekarza)
+        self.usunPrzypisanieButton.clicked.connect(self.usunLekarza)
+        self.odswiezPrzypisaniaButton.clicked.connect(self.odswiezPrzypisania)
+
+    def odswiezPrzypisania(self):
+        self.daneLekarzyTable.resizeColumnsToContents()
+        self.daneLekarzyTable.repaint()
+
+    def dodajLekarza(self):
+        self.model.insertRows(self.model.rowCount(), 1)
+
+    def usunLekarza(self):
+        rows = set([x.row() for x in self.daneLekarzyTable.selectedIndexes()])
+        for unique_row in rows:
+            self.model.removeRow(unique_row)
+        self.model.select()
+
     def wczytajPDFDialog(self):
-        qfd = QtWidgets.QFileDialog(
-            self.window, "Wybierz pliki", QtCore.QDir.homePath(),
-            "Pliki PDF(*.pdf);;Wszystkie pliki(*)")
-        qfd.setOption(QtWidgets.QFileDialog.DontUseNativeDialog)
-        qfd.fileSelected.connect(self.wczytajPDF)
-        qfd.show()
+        fn = QtWidgets.QFileDialog.getOpenFileName(
+            self.window, "Wybierz plik", QtCore.QDir.homePath(),
+            "Pliki PDF (*.pdf);;Wszystkie pliki (*)",
+            **QFileDialog_platform_kwargs)
+        if fn[0]:
+            try:
+                self.wczytajPDF(fn[0])
+            except Exception as e:
+                import traceback
+                exc_type, exc_value, exc_traceback = sys.exc_info()
+                exception = "".join(traceback.format_exception(
+                    exc_type, exc_value, exc_traceback, limit=3))
+
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    "Błąd wczytywania pliku",
+                    "Błąd wczytywania pliku.\n\n"
+                    "Skopiuj poniższą informację i wyślij autorowi "
+                    "oprogramowania na adres e-mail wraz z plikiem PDF, "
+                    "który wywołał błąd.\n\n"
+                    "%s" % exception)
 
     def wczytajPDF(self, fn):
         data, tabela = pobierz_plan(fn)
-
-        self.danePacjentowTable.clear()
-
+        self.data = data
+        self.danePacjentowTable.clearContents()
         for row_no, row in enumerate(tabela):
             self.danePacjentowTable.insertRow(row_no)
             for col_no, col in enumerate(row):
+                if col_no == 10:
+                    col = col[:80]
                 self.danePacjentowTable.setItem(
                     row_no, col_no, QtWidgets.QTableWidgetItem(col)
                 )
+        self.uzupelnijLekarzy()
+        self.danePacjentowTable.resizeColumnsToContents()
+
+    def uzupelnijLekarzy(self):
+        for row_no in range(self.danePacjentowTable.rowCount()):
+            item = self.danePacjentowTable.item(row_no, 9)
+            text = item.text()
+            if not text:
+                continue
+            try:
+                lekarz = text.split(", ")[0].strip()
+            except IndexError:
+                continue
+            oddzial = oddzial_dla_lekarza(self.db, lekarz)
+            if oddzial:
+                self.danePacjentowTable.setItem(
+                    row_no, 1, QtWidgets.QTableWidgetItem(oddzial))
+
+        self.odswiezPrzypisania()
+
+    def zapiszXLSWybierzPlikDocelowy(self):
+        fn = QtWidgets.QFileDialog.getSaveFileName(
+            self.window, "Wybierz plik docelowy", QtCore.QDir.homePath(),
+            "Pliki XLS (*.xls)",
+            **QFileDialog_platform_kwargs)
+        if fn[0]:
+            try:
+                self.zapiszXLS(fn[0])
+            except Exception as e:
+                import traceback
+                exc_type, exc_value, exc_traceback = sys.exc_info()
+                exception = "".join(traceback.format_exception(
+                    exc_type, exc_value, exc_traceback, limit=3))
+
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    "Błąd zapisywania pliku",
+                    "Błąd zapisywania pliku.\n\n"
+                    "Skopiuj poniższą informację i wyślij autorowi "
+                    "oprogramowania na adres e-mail wraz z plikiem PDF, "
+                    "który wywołał błąd.\n\n"
+                    "%s" % exception)
+            else:
+                QtWidgets.QMessageBox.information(
+                    None,
+                    "Plik zapisano",
+                    "Dane w formacie XLS zostały zapisane.\n\n"
+                    "Pełna ścieżka do pliku: \n%s" % Path(fn[0]).resolve())
+
+    def zapiszXLS(self, fn):
+        book = xlwt.Workbook(encoding="utf-8")
+
+        sheet = book.add_sheet("Zabiegi dnia %s" % self.data)
+        for row_no in range(self.danePacjentowTable.rowCount()):
+            for col_no in range(10):
+                value = self.danePacjentowTable.item(row_no, col_no)
+                sheet.write(row_no, col_no, value.text())
+
+        output = open(fn, "wb")
+        book.save(output)
+        output.close()
 
 
-if __name__ == '__main__':
+def entry_point():
     app = QtWidgets.QApplication(sys.argv)
     win = QtWidgets.QMainWindow()
     prog = AMMSPlanOp2XLS(win)
     win.show()
 
-    # db
-    db = get_db()
-    if not db:
-        QtWidgets.QMessageBox.critical(
-            None,
-            "Błąd bazy danych",
-            "Nie można otworzyć bazy danych.",
-            QtWidgets.QMessageBox.Close)
-        sys.exit(-1)
-
-    model = get_model(app, db)
-    prog.daneLekarzyTable.setModel(model)
-    prog.daneLekarzyTable.hideColumn(0)
-
-    def dodaj():
-        model.insertRows(model.rowCount(), 1)
-    prog.dodajPrzypisanieButton.clicked.connect(dodaj)
-
-    def usun():
-        for elem in prog.daneLekarzyTable.selectedIndexes():
-            model.removeRows(elem.row(), 1)
-        model.select()
-    prog.usunPrzypisanieButton.clicked.connect(usun)
-
     if len(sys.argv) > 1 and sys.argv[1]:
         prog.wczytajPDF(sys.argv[1])
 
     sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    entry_point()

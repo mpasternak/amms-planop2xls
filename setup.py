@@ -11,7 +11,8 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     "PyQt5==5.8.2",
-    "pdf-table-extractor==0.1.1"
+    "pdf-table-extractor==0.1.1",
+    "xlwt==1.2.0",
 ]
 
 test_requirements = [
