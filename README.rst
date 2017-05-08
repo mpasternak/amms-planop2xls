@@ -18,7 +18,12 @@ AMMS PlanOp2XLS
      :alt: Updates
 
 
-Konwerter plików PDF z planem operacyjnym z systemu Asseco Medical Management Solutions
+Konwerter plików PDF z planem operacyjnym z systemu Asseco Medical
+    Management Solutions.
+
+Program jest niezależnym projektem firmy IPL i nie
+    jest w żaden sposób wspierany lub związany z firmą Asseco. Program
+    rozprowadzany jest za darmo, na otwartej licencji MIT.
 
 
 * Free software: MIT license
