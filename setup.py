@@ -36,6 +36,10 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
+setup_requirements = [
+    "pyqt-distutils==0.7.2"
+]
+
 setup(
     name='amms_planop2xls',
     version='0.1.0',
@@ -62,6 +66,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
     ],
+    setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     cmdclass=cmdclass
