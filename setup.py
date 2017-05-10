@@ -37,7 +37,7 @@ test_requirements = [
 ]
 
 setup_requirements = [
-    "pyqt-distutils==0.7.2"
+    "pyqt_distutils==0.7.2"
 ]
 
 setup(
@@ -66,7 +66,10 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
     ],
-    setup_requires=setup_requirements,
+    # Unfortunately, with pyqt_distutils==0.7.2 (recent release) this will 
+    # fail.
+    #
+    # setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     cmdclass=cmdclass
