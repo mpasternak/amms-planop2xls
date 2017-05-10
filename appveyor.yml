@@ -47,11 +47,7 @@ install:
   # compiled extensions and are not provided as pre-built wheel packages,
   # pip will build them from source using the MSVC compiler matching the
   # target Python version and architecture
-  - "%CMD_IN_ENV% pip install pycryptodome chardet"
-  - "%CMD_IN_ENV% pip install --no-deps pdfminer.six"
-  - "%CMD_IN_ENV% pip install --no-deps drunken-child-in-the-fog"
-  - "%CMD_IN_ENV% pip install -r requirements.txt"
-  - "%CMD_IN_ENV% pip install -r requirements_dev.txt"
+  - "%CMD_IN_ENV% pip install --no-deps -r requirements_win.txt"
 
 build_script:
   # Build the compiled extension
