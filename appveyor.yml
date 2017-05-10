@@ -49,6 +49,7 @@ install:
   # target Python version and architecture
   - "%CMD_IN_ENV% pip install pycryptodome chardet"
   - "%CMD_IN_ENV% pip install --no-deps pdfminer.six"
+  - "%CMD_IN_ENV% pip install --no-deps drunken-child-in-the-fog"
   - "%CMD_IN_ENV% pip install -r requirements.txt"
   - "%CMD_IN_ENV% pip install -r requirements_dev.txt"
 
