@@ -14,7 +14,8 @@ install:
   - export TOXENV=py${TRAVIS_PYTHON_VERSION//./}
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-  - echo "Home dir is: $HOME" 
+  - echo 'Home dir is: '
+  - echo ${HOME}
 
 script: tox
 
