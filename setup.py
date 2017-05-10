@@ -41,7 +41,7 @@ setup_requirements = [
 
 setup(
     name='amms_planop2xls',
-    version='0.1.0',
+    version='0.1.1',
     description="Konwerter plików PDF z planem operacyjnym z systemu Asseco Medical Management Solutions",
     long_description=readme + '\n\n' + history,
     author="Michał Pasternak",
