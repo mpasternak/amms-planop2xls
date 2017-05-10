@@ -61,5 +61,8 @@ target/
 # pyenv python configuration file
 .python-version
 
-amms_planop2xls/mainwindow.py
+amms_planop2xls/mainwindow_ui.py
 .idea/
+
+Library/
+*.db
