@@ -2,22 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup
-from setuptools.command.sdist import sdist
-
-# Unfortunately, with pyqt_distutils==0.7.2 setup_reuqires will fail. 
-# So, please manually:
-#
-# $ pip install pyqt_distutils==0.7.2
-#
 from pyqt_distutils.build_ui import build_ui
 cmdclass = {'build_ui': build_ui}
-
-class PreSdistCommand(sdist):
-    def run(self):
-        self.run_command("build_ui")
-        sdist.run(self)
-
-cmdclass['sdist'] = PreSdistCommand
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -25,19 +11,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [
-    "PyQt5==5.8.2",
-    "pdf-table-extractor==0.1.1",
-    "xlwt==1.2.0",
-]
+reqs = lambda fn: list([x.strip() for x in open(fn).readlines() if x.strip()])      
 
-test_requirements = [
-    "pyqt_distutils==0.7.2"
-]
+requirements = reqs("requirements.txt")
 
-setup_requirements = [
-    "pyqt_distutils==0.7.2"
-]
+test_requirements = reqs("requirements_dev.txt")
 
 setup(
     name='amms_planop2xls',
@@ -65,7 +43,6 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
     ],
-    # setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     cmdclass=cmdclass
