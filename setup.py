@@ -2,6 +2,23 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup
+from setuptools.command.sdist import sdist
+
+try:
+    from pyqt_distutils.build_ui import build_ui
+    cmdclass = {'build_ui': build_ui}
+except ImportError:
+    build_ui = None  # user won't have pyqt_distutils when deploying
+    cmdclass = {}
+
+
+class PreSdistCommand(sdist):
+    def run(self):
+        if build_ui:
+            self.run_command("build_ui")
+        sdist.run(self)
+
+cmdclass['sdist'] = PreSdistCommand
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -46,5 +63,6 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    cmdclass=cmdclass
 )
