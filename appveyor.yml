@@ -47,6 +47,9 @@ install:
   # compiled extensions and are not provided as pre-built wheel packages,
   # pip will build them from source using the MSVC compiler matching the
   # target Python version and architecture
+  - ECHO "Current directory"
+  - ps: "pwd"
+
   - "%CMD_IN_ENV% pip install -r dev_requirements.txt"
 
 build_script:
