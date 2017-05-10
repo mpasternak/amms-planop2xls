@@ -17,6 +17,10 @@ AMMS PlanOp2XLS
      :target: https://pyup.io/repos/github/mpasternak/amms-planop2xls/
      :alt: Updates
 
+.. image:: https://ci.appveyor.com/api/projects/status/github/mpasternak/amms-planop2xls?branch=master&svg=true
+     :target: https://ci.appveyor.com/project/mpasternak/amms-planop2xls
+     :alt: AppVeyor build status
+
 
 Konwerter plików PDF z planem operacyjnym z systemu Asseco Medical Management Solutions.
 
