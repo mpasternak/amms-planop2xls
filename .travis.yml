@@ -1,9 +1,16 @@
+addons:
+  apt:
+    packages:
+      - xvfb
+
 language: python
 python: 3.6
 
 install:
   - pip install -U tox
   - export TOXENV=py${TRAVIS_PYTHON_VERSION//./}
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
 script: tox
 
