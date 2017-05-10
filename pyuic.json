@@ -1,0 +1,12 @@
+{
+    "files": [
+        [
+            "amms_planop2xls/mainwindow.ui",
+	    "amms_planop2xls"
+        ]
+    ],
+    "pyrcc": "pyrcc5",
+    "pyrcc_options": "",
+    "pyuic": "pyuic5",
+    "pyuic_options": ""
+}
