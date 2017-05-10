@@ -4,13 +4,14 @@
 from setuptools import setup
 from setuptools.command.sdist import sdist
 
-try:
-    from pyqt_distutils.build_ui import build_ui
-    cmdclass = {'build_ui': build_ui}
-except ImportError:
-    build_ui = None  # user won't have pyqt_distutils when deploying
-    cmdclass = {}
+# Unfortunately, with pyqt_distutils==0.7.2 setup_reuqires will fail. 
+# So, please manually:
+#
+# $ pip install pyqt_distutils==0.7.2
+# 
 
+from pyqt_distutils.build_ui import build_ui
+cmdclass = {'build_ui': build_ui}
 
 class PreSdistCommand(sdist):
     def run(self):
@@ -66,9 +67,6 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
     ],
-    # Unfortunately, with pyqt_distutils==0.7.2 (recent release) this will 
-    # fail.
-    #
     # setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,

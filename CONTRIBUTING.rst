@@ -68,6 +68,7 @@ Ready to contribute? Here's how to set up `amms_planop2xls` for local developmen
 
     $ mkvirtualenv amms_planop2xls
     $ cd amms_planop2xls/
+    $ pip install pyqt_distutils==0.7.2
     $ python setup.py develop
 
 4. Create a branch for local development::
