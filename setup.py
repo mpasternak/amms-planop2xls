@@ -8,15 +8,13 @@ from setuptools.command.sdist import sdist
 # So, please manually:
 #
 # $ pip install pyqt_distutils==0.7.2
-# 
-
+#
 from pyqt_distutils.build_ui import build_ui
 cmdclass = {'build_ui': build_ui}
 
 class PreSdistCommand(sdist):
     def run(self):
-        if build_ui:
-            self.run_command("build_ui")
+        self.run_command("build_ui")
         sdist.run(self)
 
 cmdclass['sdist'] = PreSdistCommand
