@@ -33,6 +33,7 @@ clean-build: ## remove build artifacts
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
+	rm -rf amms_planop2xls/mainwindow_ui.py
 	find . -name '*.egg-info' -exec rm -fr {} +
 	find . -name '*.egg' -exec rm -f {} +
 
@@ -48,7 +49,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 
 lint: ## check style with flake8
-	flake8 amms_planop2xls tests --exclude=amms_planop2xls/mainwindow.py
+	flake8 amms_planop2xls tests --exclude=amms_planop2xls/mainwindow_ui.py
 
 test: ## run tests quickly with the default Python
 	py.test
