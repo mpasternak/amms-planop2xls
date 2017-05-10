@@ -2,7 +2,7 @@ language: python
 python: 3.6
 
 install:
-  - pip install -U tox pyqt_distutils==0.7.2
+  - pip install -U tox
   - export TOXENV=py${TRAVIS_PYTHON_VERSION//./}
 
 script: tox
