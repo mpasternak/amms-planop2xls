@@ -37,7 +37,7 @@ install:
     - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
     - "activate test"
     - "conda install ciocheck -c conda-forge"
-    - "conda install pyqt_distutils"
+    - "pip install pyqt_distutils"
     - "python setup.py develop"
 
 # Not a .NET project, we build in the install step instead
