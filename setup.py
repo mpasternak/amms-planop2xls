@@ -32,7 +32,7 @@ requirements = [
 ]
 
 test_requirements = [
-    # TODO: put package test requirements here
+    "pyqt_distutils==0.7.2"
 ]
 
 setup_requirements = [
