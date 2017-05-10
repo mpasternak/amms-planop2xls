@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import os
+import platform
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 import xlwt
@@ -8,12 +12,21 @@ from PyQt5 import QtWidgets, QtCore
 
 from .mainwindow_ui import Ui_MainWindow
 from .storage import get_db, get_model, oddzial_dla_lekarza
-from .util import pobierz_plan
+from .util import pobierz_plan, datadir
 
 QFileDialog_platform_kwargs = {}
 if sys.platform == 'darwin':
     QFileDialog_platform_kwargs = dict(
         options=QtWidgets.QFileDialog.DontUseNativeDialog)
+
+
+def open_file(path):
+    if platform.system() == "Windows":
+        os.startfile(path)
+    elif platform.system() == "Darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
 
 
 class AMMSPlanOp2XLS(Ui_MainWindow):
@@ -51,6 +64,87 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         self.dodajPrzypisanieButton.clicked.connect(self.dodajLekarza)
         self.usunPrzypisanieButton.clicked.connect(self.usunLekarza)
         self.odswiezPrzypisaniaButton.clicked.connect(self.odswiezPrzypisania)
+
+        # templatki
+        self.templatkiModel = QtWidgets.QFileSystemModel()
+        self.templatkiModel.setRootPath(datadir())
+        self.templatkiModel.setNameFilters(['*.odt'])
+        self.templatkiModel.setNameFilterDisables(False)
+        self.templatkiTable.setModel(self.templatkiModel)
+        self.templatkiTable.setRootIndex(self.templatkiModel.index(datadir()))
+        self.templatkiTable.setSelectionBehavior(
+            QtWidgets.QAbstractItemView.SelectRows
+        )
+
+        self.otworzKatalogButton.clicked.connect(self.otworzKatalogTemplatek)
+        self.otworzTemplatkeButton.clicked.connect(self.otworzTemplatke)
+        self.generujWydrukiButton.clicked.connect(self.generujWydruki)
+
+    def otworzKatalogTemplatek(self):
+        open_file(datadir())
+
+    def otworzTemplatke(self):
+        fns = set()
+        for idx in self.templatkiTable.selectedIndexes():
+            fp = self.templatkiModel.filePath(idx)
+            fns.add(fp)
+
+        for fp in fns:
+            open_file(fp)
+
+    def generujWydruki(self):
+        fns = set()
+        for idx in self.templatkiTable.selectedIndexes():
+            fp = self.templatkiModel.filePath(idx)
+            fns.add(fp)
+
+        header = []
+        for col_no in range(11):
+            value = self.danePacjentowTable.horizontalHeaderItem(
+                col_no).text()
+            value = value.replace(" ", "_")
+            value = value.replace("ł", "l")
+            value = value.replace("ę", "e")
+            value = value.replace("ó", "o").lower()
+            header.append(value)
+
+        pacjenci = []
+        for row_no in range(self.danePacjentowTable.rowCount()):
+            dct = {}
+            for col_no in range(11):
+                value = self.danePacjentowTable.item(row_no, col_no)
+                dct[header[col_no]] = value.text()
+            pacjenci.append(dct)
+
+        from secretary import Renderer
+        engine = Renderer()
+
+        for fp in fns:
+            try:
+                result = engine.render(fp, pacjenci=pacjenci, data=self.data)
+            except Exception as e:
+                import traceback
+                exc_type, exc_value, exc_traceback = sys.exc_info()
+                exception = "".join(traceback.format_exception(
+                    exc_type, exc_value, exc_traceback, limit=3))
+
+                print(exception)
+
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    "Błąd renderowania pliku",
+                    "Błąd renderowania pliku.\n\n"
+                    "Skopiuj poniższą informację i wyślij autorowi "
+                    "oprogramowania na adres e-mail wraz z plikiem ODT "
+                    "(templatki) który wywołał błąd.\n\n"
+                    "%s" % exception)
+                continue
+
+            handle, pathname = \
+                tempfile.mkstemp(".odt", "amms-planop2xls-")
+            os.write(handle, result)
+            os.close(handle)
+            open_file(pathname)
 
     def odswiezPrzypisania(self):
         self.daneLekarzyTable.resizeColumnsToContents()
@@ -154,7 +248,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
 
         sheet = book.add_sheet("Zabiegi dnia %s" % self.data)
         for row_no in range(self.danePacjentowTable.rowCount()):
-            for col_no in range(10):
+            for col_no in range(11):
                 value = self.danePacjentowTable.item(row_no, col_no)
                 sheet.write(row_no, col_no, value.text())
 
