@@ -10,6 +10,7 @@ from pathlib import Path
 import xlwt
 from PyQt5 import QtWidgets, QtCore
 
+from . import __version__
 from .mainwindow_ui import Ui_MainWindow
 from .storage import get_db, get_model, oddzial_dla_lekarza
 from .util import pobierz_plan, datadir
@@ -38,6 +39,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         self.wczytajPDFButton.clicked.connect(self.wczytajPDFDialog)
         self.zapiszXLSButton.clicked.connect(
             self.zapiszXLSWybierzPlikDocelowy)
+
         #
         # # Connect "add" button with a custom function (addInputTextToListbox)
         # self.addBtn.clicked.connect(self.addInputTextToListbox)
@@ -83,6 +85,19 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         self.otworzKatalogButton.clicked.connect(self.otworzKatalogTemplatek)
         self.otworzTemplatkeButton.clicked.connect(self.otworzTemplatke)
         self.generujWydrukiButton.clicked.connect(self.generujWydruki)
+
+        # browser
+        self.witajBrowser.setOpenLinks(False)
+        self.witajBrowser.anchorClicked.connect(self.browserClicked)
+
+    def browserClicked(self, url):
+        s = url.scheme()
+        u = url.url()
+        if s == "tab":
+            self.tabWidget.setCurrentIndex(int(u[-1]))
+        else:
+            import webbrowser
+            webbrowser.open(u)
 
     def otworzKatalogTemplatek(self):
         open_file(datadir())
