@@ -66,3 +66,4 @@ amms_planop2xls/mainwindow_ui.py
 
 Library/
 *.db
+#tox.ini#
