@@ -75,6 +75,10 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         self.templatkiTable.setSelectionBehavior(
             QtWidgets.QAbstractItemView.SelectRows
         )
+        self.templatkiModel.directoryLoaded.connect(
+            self.templatkiTable.resizeColumnsToContents)
+        self.templatkiModel.fileRenamed.connect(
+            self.templatkiTable.resizeColumnsToContents)
 
         self.otworzKatalogButton.clicked.connect(self.otworzKatalogTemplatek)
         self.otworzTemplatkeButton.clicked.connect(self.otworzTemplatke)
