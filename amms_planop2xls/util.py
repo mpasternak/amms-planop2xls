@@ -2,6 +2,7 @@
 
 import re
 from pathlib import Path
+from shutil import copy
 
 from PyQt5 import QtCore
 from drunken_child_in_the_fog.core import DrunkenChildInTheFog
@@ -15,13 +16,21 @@ data_zabiegu_regex = re.compile(
     "Plan operacyjny: na dzień (?P<data>\d+\.\d+\.\d+) .*")
 
 
+def create_datadir(ret):
+    """Utwórz katalog z danymi, skopiuj dołączone pliki ODT do tegoż 
+    katalogu."""
+    ret.mkdir()
+    for fn in Path(__file__).parent.glob("data/*.odt"):
+        copy(fn, ret)
+
+
 def datadir():
     add = ""
     cnt = 0
     while True:
         ret = Path(QtCore.QDir.homePath()) / (".amms-planop2xls%s" % add)
         if not ret.exists():
-            ret.mkdir()
+            create_datadir(ret)
 
         if ret.exists():
             if not ret.is_dir():
