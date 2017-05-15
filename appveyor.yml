@@ -82,3 +82,15 @@ artifacts:
 #  - TODO: upload the content of dist/*.whl to a public wheelhouse
 #
 
+deploy:
+  release: AMMS-PlanOp2XLS-0.1.3-v$(appveyor_build_version)
+  description: 'Wersja dla Windows'
+  provider: GitHub
+  auth_token:
+    secure: 6X1YZhfQfIlemj+N32ycrBhjXM+YyLlRNoFUSRzcFkMqunM5Af7WQxWFVaCsrjwr
+  artifact: AMMS-PlanOp2XLS-*
+  draft: false
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag
