@@ -70,7 +70,7 @@ after_test:
   - "%CMD_IN_ENV% mkdir dist"
   - "%CMD_IN_ENV% move build\\nsis\\AMMS-PlanOp2XLS*exe dist"
   - "%CMD_IN_ENV% echo start /B Python\\python.exe AMMS-PlanOp2XLS.launch.pyw > build\\nsis\\AAA_KLIKNIJ_MNIE.bat"
-  - "%CMD_IN_ENV% move build\\nsis\\ AMMS-PlanOp2XLS-0.1.3"
+  - "%CMD_IN_ENV% move build\\nsis AMMS-PlanOp2XLS-0.1.3"
   - "%CMD_IN_ENV% 7z a AMMS-PlanOp2XLS-0.1.3.zip AMMS-PlanOp2XLS-0.1.3"
 
 artifacts:
