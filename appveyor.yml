@@ -20,6 +20,8 @@ install:
         https://ci.appveyor.com/api/projects/$env:APPVEYOR_ACCOUNT_NAME/$env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
         Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
           throw "There are newer queued builds for this pull request, failing early." }
+
+
   - ECHO "Filesystem root:"
   - ps: "ls \"C:/\""
 
@@ -38,6 +40,9 @@ install:
   # Check that we have the expected version and architecture for Python
   - "python --version"
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
+
+  - "choco install -y nsis"
+  - "choco install -y 7zip"
 
   # Upgrade to the latest version of pip to avoid it displaying warnings
   # about it being out of date.
@@ -64,11 +69,14 @@ after_test:
   - ps: "ls build\\nsis"
   - "%CMD_IN_ENV% mkdir dist"
   - "%CMD_IN_ENV% move build\\nsis\\AMMS-PlanOp2XLS*exe dist"
-  # - "%CMD_IN_ENV% echo Python\python.exe AMMS-PlanOp2XLS.launch.pyw > build\nsis\runme.bat"
+  - "%CMD_IN_ENV% echo start /B Python\\python.exe AMMS-PlanOp2XLS.launch.pyw > build\\nsis\\AAA_KLIKNIJ_MNIE.bat"
+  - "%CMD_IN_ENV% move build\\nsis\\ AMMS-PlanOp2XLS-0.1.3"
+  - "%CMD_IN_ENV% 7z a AMMS-PlanOp2XLS-0.1.3.zip AMMS-PlanOp2XLS-0.1.3"
 
 artifacts:
   # Archive the generated packages in the ci.appveyor.com build report.
   - path: dist\*.exe
+  - path: *.zip
 
 #on_success:
 #  - TODO: upload the content of dist/*.whl to a public wheelhouse
