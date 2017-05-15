@@ -61,11 +61,14 @@ test_script:
 after_test:
   # If tests are successful, create binary packages for the project.
   - "%CMD_IN_ENV% pynsist installer.cfg"
-  - ps: "ls build\nsis"
+  - ps: "ls build\\nsis"
+  - "%CMD_IN_ENV% mkdir dist"
+  - "%CMD_IN_ENV% move build\\nsis\\AMMS-PlanOp2XLS*exe dist"
+  # - "%CMD_IN_ENV% echo Python\python.exe AMMS-PlanOp2XLS.launch.pyw > build\nsis\runme.bat"
 
 artifacts:
   # Archive the generated packages in the ci.appveyor.com build report.
-  - path: build\nsis\*
+  - path: dist\*.exe
 
 #on_success:
 #  - TODO: upload the content of dist/*.whl to a public wheelhouse
