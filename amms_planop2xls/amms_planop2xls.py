@@ -35,7 +35,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         self.window = win
         self.setupUi(win)
         self.data = ""
-        self.wczytajPDFButton.clicked.connect(self.wczytajPDFDialog)
+        self.importujPDFButton.clicked.connect(self.importujPDFDialog)
         self.zapiszXLSButton.clicked.connect(
             self.zapiszXLSWybierzPlikDocelowy)
 
@@ -177,14 +177,14 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             self.model.removeRow(unique_row)
         self.model.select()
 
-    def wczytajPDFDialog(self):
+    def importujPDFDialog(self):
         fn = QtWidgets.QFileDialog.getOpenFileName(
             self.window, "Wybierz plik", QtCore.QDir.homePath(),
             "Pliki PDF (*.pdf);;Wszystkie pliki (*)",
             **QFileDialog_platform_kwargs)
         if fn[0]:
             try:
-                self.wczytajPDF(fn[0])
+                self.importujPDF(fn[0])
             except Exception as e:
                 import traceback
                 exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -200,7 +200,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                     "który wywołał błąd.\n\n"
                     "%s" % exception)
 
-    def wczytajPDF(self, fn):
+    def importujPDF(self, fn):
         data, tabela = pobierz_plan(fn)
         self.data = data
         self.danePacjentowTable.clearContents()
@@ -282,7 +282,7 @@ def entry_point():
     win.show()
 
     if len(sys.argv) > 1 and sys.argv[1]:
-        prog.wczytajPDF(sys.argv[1])
+        prog.importujPDF(sys.argv[1])
 
     sys.exit(app.exec_())
 

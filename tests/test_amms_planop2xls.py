@@ -10,14 +10,14 @@ from amms_planop2xls.amms_planop2xls import AMMSPlanOp2XLS
 
 def test_wczytaj_pdf_dialog(program, qtbot, mock):
     qfd = mock.patch("PyQt5.QtWidgets.QFileDialog")
-    wczytajPDF = mock.patch.object(program, "wczytajPDF", raises=Exception)
-    program.wczytajPDFDialog()
+    importujPDF = mock.patch.object(program, "importujPDF", raises=Exception)
+    program.importujPDFDialog()
     qfd.getOpenFileName.assert_called_once()
-    wczytajPDF.assert_called_once()
+    importujPDF.assert_called_once()
 
 
 def test_wczytaj_pdf(program, test_pdf_filename):
-    program.wczytajPDF(test_pdf_filename)
+    program.importujPDF(test_pdf_filename)
 
 
 def test_dodaj_lekarza_test_usun_lekarza(program, qtbot, mock):
@@ -55,11 +55,11 @@ def test_main_window_getdb_failure(mock, qtbot):
 
 
 def test_wczytaj_pdf_dialog_failure(mock, qtbot, program):
-    mock.patch.object(program, "wczytajPDF", side_effect=Exception("omg"))
+    mock.patch.object(program, "importujPDF", side_effect=Exception("omg"))
     mock.patch("PyQt5.QtWidgets.QFileDialog.getOpenFileName", return_value=(
         "foo", True))
     box = mock.patch("PyQt5.QtWidgets.QMessageBox.critical")
-    program.wczytajPDFDialog()
+    program.importujPDFDialog()
     box.assert_called_once()
 
 
