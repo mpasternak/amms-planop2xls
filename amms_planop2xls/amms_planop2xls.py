@@ -10,7 +10,6 @@ from pathlib import Path
 import xlwt
 from PyQt5 import QtWidgets, QtCore
 
-from . import __version__
 from .mainwindow_ui import Ui_MainWindow
 from .storage import get_db, get_model, oddzial_dla_lekarza
 from .util import pobierz_plan, datadir
