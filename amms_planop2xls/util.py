@@ -17,7 +17,7 @@ data_zabiegu_regex = re.compile(
 
 
 def create_datadir(ret):
-    """Utwórz katalog z danymi, skopiuj dołączone pliki ODT do tegoż 
+    """Utwórz katalog z danymi, skopiuj dołączone pliki ODT do tegoż
     katalogu."""
     ret.mkdir()
     for fn in Path(__file__).parent.glob("data/*.odt"):
