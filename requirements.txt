@@ -2,3 +2,4 @@ PyQt5==5.8.2
 pdf-table-extractor==0.1.1
 xlwt==1.2.0
 secretary==0.2.14
+xlrd==1.0.0

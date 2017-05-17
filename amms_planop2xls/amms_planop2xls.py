@@ -7,6 +7,7 @@ import sys
 import tempfile
 from pathlib import Path
 
+import xlrd
 import xlwt
 from PyQt5 import QtWidgets, QtCore
 
@@ -88,6 +89,51 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         # browser
         self.witajBrowser.setOpenLinks(False)
         self.witajBrowser.anchorClicked.connect(self.browserClicked)
+
+        #
+
+        self.wczytajXLSButton.clicked.connect(
+            self.wczytajXLSWybierzPlikZrodlowy)
+
+        #
+
+        self.dodajPacjentaButton.clicked.connect(
+            self.dodajPacjenta
+        )
+
+        self.usunPacjentaButton.clicked.connect(
+            self.usunPacjenta
+        )
+
+        #
+
+        self.wyczyscPacjentowButton.clicked.connect(self.wyczyscPacjentow)
+
+    def wyczyscPacjentow(self):
+        res = QtWidgets.QMessageBox.question(
+            None, "Potwierdź", "Czy na pewno wyczyścić dane planu "
+                               "operacyjnego?")
+
+        if res == QtWidgets.QMessageBox.Yes:
+            self.wyczyscDanePacjentowZTabeli()
+
+    def wyczyscDanePacjentowZTabeli(self):
+        self.danePacjentowTable.clearContents()
+        for elem in range(self.danePacjentowTable.rowCount()):
+            self.danePacjentowTable.removeRow(0)
+
+    def dodajPacjenta(self):
+        self.danePacjentowTable.insertRow(
+            self.danePacjentowTable.rowCount())
+
+    def usunPacjenta(self):
+        rows = set(
+            [x.row() for x in self.danePacjentowTable.selectedIndexes()])
+
+        cnt = 0
+        for row in sorted(rows):
+            self.danePacjentowTable.removeRow(row - cnt)
+            cnt += 1
 
     def browserClicked(self, url):
         s = url.scheme()
@@ -260,6 +306,51 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                     "Plik zapisano",
                     "Dane w formacie XLS zostały zapisane.\n\n"
                     "Pełna ścieżka do pliku: \n%s" % Path(fn[0]).resolve())
+
+    def wczytajXLSWybierzPlikZrodlowy(self):
+        fn = QtWidgets.QFileDialog.getOpenFileName(
+            self.window, "Wybierz plik wejściowy", QtCore.QDir.homePath(),
+            "Pliki XLS (*.xls)",
+            **QFileDialog_platform_kwargs)
+        if fn[0]:
+            try:
+                self.wczytajXLS(fn[0])
+            except Exception as e:
+                import traceback
+                exc_type, exc_value, exc_traceback = sys.exc_info()
+                exception = "".join(traceback.format_exception(
+                    exc_type, exc_value, exc_traceback, limit=3))
+
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    "Błąd wczytywania pliku",
+                    "Błąd wczytywania pliku.\n\n"
+                    "Skopiuj poniższą informację i wyślij autorowi "
+                    "oprogramowania na adres e-mail wraz z plikiem PDF, "
+                    "który wywołał błąd.\n\n"
+                    "%s" % exception)
+
+    def wczytajXLS(self, fn):
+        xl_workbook = xlrd.open_workbook(fn)
+        sheet_names = xl_workbook.sheet_names()
+        self.data = sheet_names[0].split("Zabiegi dnia ")[1]
+
+        xl_sheet = xl_workbook.sheet_by_index(0)
+
+        self.wyczyscDanePacjentowZTabeli()
+
+        num_cols = xl_sheet.ncols  # Number of columns
+        for row_idx in range(0, xl_sheet.nrows):  # Iterate through rows
+            self.danePacjentowTable.insertRow(
+                self.danePacjentowTable.rowCount())
+
+            for col_idx in range(0, num_cols):  # Iterate through columns
+                cell_obj = xl_sheet.cell(row_idx,
+                                         col_idx)  # Get cell object by row, col
+                self.danePacjentowTable.setItem(row_idx, col_idx,
+                                                QtWidgets.QTableWidgetItem(
+                                                    cell_obj.value))
+                print (row_idx, col_idx, cell_obj.value)
 
     def zapiszXLS(self, fn):
         book = xlwt.Workbook(encoding="utf-8")
