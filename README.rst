@@ -24,17 +24,19 @@ AMMS PlanOp2XLS
 
 Konwerter plików PDF z planem operacyjnym z systemu Asseco Medical Management Solutions.
 
-Program jest niezależnym projektem firmy IPL i nie jest w żaden sposób wspierany lub związany z firmą Asseco. Program rozprowadzany jest za darmo, na otwartej licencji MIT.
+Program jest niezależnym projektem firmy IPL i nie jest w żaden sposób wspierany lub związany z firmą Asseco. 
 
+* otwarte oprogramowanie: licencja MIT
+* dokumentacja: https://amms-planop2xls.readthedocs.io.
 
-* Free software: MIT license
-* Documentation: https://amms-planop2xls.readthedocs.io.
+Pobierz binarną wersję programu dla systemu operacyjnego Windows (od wersji 7): https://ci.appveyor.com/project/mpasternak/amms-planop2xls/build/artifacts . Wersja .exe to wersja z instalatorem, wymaga uprawnień administratora na komputerze, na którym jest instalowana. Wersja ZIP z kolei to wersja do rozpakowania i używania w miejscu instalacji - nie wymaga uprawnień administratora, aby ją uruchomić.
 
+Możliwości programu
+-------------------
 
-Features
---------
-
-* TODO
+* generowanie plików ODT (OpenOffice, LibreOffice) według schematów, 
+* importowanie danych z plików PDF z planem operacyjnym generowanym przez system AMMS, 
+* prosta edycja danych planu operacyjnego oraz przypisań lekarzy. 
 
 Credits
 ---------
