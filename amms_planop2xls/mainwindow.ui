@@ -24,7 +24,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
@@ -40,21 +40,19 @@ p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Instrukcja obsługi&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Korzystasz z oprogramowania AMMS-Planop2XLS wersja 0.1.3. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Korzystasz z oprogramowania &lt;a href=&quot;https://github.com/mpasternak/amms-planop2xls&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;AMMS-Planop2XLS&lt;/span&gt;&lt;/a&gt; wersja 0.1.3. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Niniejsze oprogramowanie dystrybuowane jest na zasadach &lt;a href=&quot;https://pl.wikipedia.org/wiki/Licencja_MIT&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;otwartoźródłowej licencji MIT&lt;/span&gt;&lt;/a&gt;. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Import danych&lt;/span&gt;&lt;/a&gt;&amp;quot; aby zaimportować dane z PDF z planem operacyjnym. Plan po zaimportowaniu lub wczytaniu można edytować - wystarczy kliknąć w komórkę tabeli. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Plan operacji&lt;/span&gt;&lt;/a&gt;&amp;quot; aby zaimportować dane z PDF z planem operacyjnym. Plan po zaimportowaniu lub wczytaniu dane można edytować - wystarczy kliknąć w komórkę tabeli. &lt;span style=&quot; font-weight:600; text-decoration: underline; color:#ff0000;&quot;&gt;UWAGA: aby poprawnie zaciągnąć dane z AMMS, wybierz opcję drukowania planu operacyjnego i zaznacz &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; text-decoration: underline; color:#ff0000;&quot;&gt;wszystkie&lt;/span&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#ff0000;&quot;&gt; pola typu checkbox (&amp;quot;ptaszki&amp;quot;) w parametrach drukowania. Tak przygotowany plan operacyjny powinien mieć po 10 kolumn na każdą tabelę z salą operacyjną w pliku PDF. &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://2&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Przypisanie lekarzy&lt;/span&gt;&lt;/a&gt;&amp;quot; aby przypisać operatorów do oddziałów. Wpisz zawsze pełną nazwę oddziału. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://2&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Przypisanie lekarzy&lt;/span&gt;&lt;/a&gt;&amp;quot; aby przypisać operatorów do oddziałów. Wpisz zawsze pełną nazwę oddziału. Każda zmiana automatycznie zaktualizuje nazwę oddziału w &amp;quot;Planie operacji&amp;quot;. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://3&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wydruki&lt;/span&gt;&lt;/a&gt;&amp;quot; aby wygenerować dokumenty w formacie ODT, otwieranym przez &lt;a href=&quot;http://www.libreoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;LibreOffice&lt;/span&gt;&lt;/a&gt; lub &lt;a href=&quot;https://www.openoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;OpenOffice&lt;/span&gt;&lt;/a&gt;. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;3. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://3&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wydruki&lt;/span&gt;&lt;/a&gt;&amp;quot; aby wygenerować dokumenty w formacie ODT, otwieranym przez &lt;a href=&quot;http://www.libreoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;LibreOffice&lt;/span&gt;&lt;/a&gt; lub &lt;a href=&quot;https://www.openoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;OpenOffice&lt;/span&gt;&lt;/a&gt;. Możesz zaznaczyć kilka plików na raz. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;W razie pytań, zapraszam do kontaktu - autor programu. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Problemy, błędy, utrudnienia, pytania? Zgłoś zapytanie prze &lt;a href=&quot;https://github.com/mpasternak/amms-planop2xls/issues&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;issue tracker na GitHub&lt;/span&gt;&lt;/a&gt;. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;lek. Michał Pasternak&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;mailto:michal.dtz@gmail.com?Subject=AMMS-PlanOp2XLS-help-tabl&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;michal.dtz@gmail.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;tel. 793668733&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Jesteś zainteresowany rozwijaniem programu? &lt;a href=&quot;https://github.com/mpasternak/amms-planop2xls&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Zapraszam do zapoznania się z kodem źródłowym&lt;/span&gt;&lt;/a&gt;. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Licencja MIT&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Menlo'; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-family:'Menlo'; color:#000000; background-color:#ffffff;&quot;&gt;Copyright (c) 2017, Michał Pasternak&lt;/span&gt;&lt;span style=&quot; font-family:'Menlo'; color:#000000;&quot;&gt;&lt;br /&gt;&lt;br /&gt;Niniejszym gwarantuje się, bez opłat, że każda osoba która wejdzie w posiadanie kopii tego oprogramowania i związanych z nim plików dokumentacji (dalej „Oprogramowanie”) może wprowadzać do obrotu Oprogramowanie bez żadnych ograniczeń, w tym bez ograniczeń prawa do użytkowania, kopiowania, modyfikowania, łączenia, publikowania, dystrybuowania, sublicencjonowania i/lub sprzedaży kopii Oprogramowania a także zezwalania osobie, której Oprogramowanie zostało dostarczone czynienia tego samego, z zastrzeżeniem następujących warunków:&lt;br /&gt;&lt;br /&gt;Powyższa nota zastrzegająca prawa autorskie oraz niniejsza nota zezwalająca muszą zostać włączone do wszystkich kopii lub istotnych części Oprogramowania.&lt;br /&gt;&lt;br /&gt;&lt;/span&gt;&lt;span style=&quot; font-family:'Menlo'; font-weight:600; color:#000000;&quot;&gt;OPROGRAMOWANIE JEST DOSTARCZONE TAKIM, JAKIE JEST, BEZ JAKIEJKOLWIEK GWARANCJI, WYRAŹNEJ LUB DOROZUMIANEJ, NIE WYŁĄCZAJĄC GWARANCJI PRZYDATNOŚCI HANDLOWEJ LUB PRZYDATNOŚCI DO OKREŚLONYCH CELÓW A TAKŻE BRAKU WAD PRAWNYCH. W ŻADNYM PRZYPADKU TWÓRCA LUB POSIADACZ PRAW AUTORSKICH NIE MOŻE PONOSIĆ ODPOWIEDZIALNOŚCI Z TYTUŁU ROSZCZEŃ LUB WYRZĄDZONEJ SZKODY A TAKŻE ŻADNEJ INNEJ ODPOWIEDZIALNOŚCI CZY TO WYNIKAJĄCEJ Z UMOWY, DELIKTU, CZY JAKIEJKOLWIEK INNEJ PODSTAWY POWSTAŁEJ W ZWIĄZKU Z OPROGRAMOWANIEM LUB UŻYTKOWANIEM GO LUB WPROWADZANIEM GO DO OBROTU.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -65,7 +63,7 @@ p, li { white-space: pre-wrap; }
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Import danych</string>
+        <string>Plan operacji</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
@@ -82,17 +80,25 @@ p, li { white-space: pre-wrap; }
              <string>Importuj PDF</string>
             </property>
             <property name="icon">
-             <iconset theme="document-new"/>
+             <iconset theme="document-new">
+              <normaloff>.</normaloff>.</iconset>
+            </property>
+            <property name="shortcut">
+             <string>Meta+I</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="wczytajXLSButton">
             <property name="text">
-             <string>Wczytaj XLS</string>
+             <string>Wczytaj plan</string>
             </property>
             <property name="icon">
-             <iconset theme="document-open"/>
+             <iconset theme="document-open">
+              <normaloff>.</normaloff>.</iconset>
+            </property>
+            <property name="shortcut">
+             <string>Meta+O</string>
             </property>
            </widget>
           </item>
@@ -105,24 +111,28 @@ p, li { white-space: pre-wrap; }
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Zapisz XLS</string>
+             <string>Zapisz plan</string>
             </property>
             <property name="icon">
-             <iconset theme="document-save"/>
+             <iconset theme="document-save">
+              <normaloff>.</normaloff>.</iconset>
+            </property>
+            <property name="shortcut">
+             <string>Meta+S</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="dodajPacjentaButton">
             <property name="text">
-             <string>Dodaj</string>
+             <string>Dodaj pacjenta</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="usunPacjentaButton">
             <property name="text">
-             <string>Usuń</string>
+             <string>Usuń pacjenta</string>
             </property>
            </widget>
           </item>
@@ -200,46 +210,42 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>Przypisanie lekarzy</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <widget class="QPushButton" name="dodajPrzypisanieButton">
-              <property name="text">
-               <string>Dodaj</string>
-              </property>
-              <property name="icon">
-               <iconset theme="document-new">
-                <normaloff>.</normaloff>.</iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="usunPrzypisanieButton">
-              <property name="text">
-               <string>Usuń</string>
-              </property>
-              <property name="icon">
-               <iconset theme="document-delete">
-                <normaloff>.</normaloff>.</iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="odswiezPrzypisaniaButton">
-              <property name="text">
-               <string>Odśwież</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QPushButton" name="dodajPrzypisanieButton">
+            <property name="text">
+             <string>Dodaj</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-new">
+              <normaloff>.</normaloff>.</iconset>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QTableView" name="daneLekarzyTable"/>
+           <widget class="QPushButton" name="usunPrzypisanieButton">
+            <property name="text">
+             <string>Usuń</string>
+            </property>
+            <property name="icon">
+             <iconset theme="document-delete">
+              <normaloff>.</normaloff>.</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="odswiezPrzypisaniaButton">
+            <property name="text">
+             <string>Odśwież</string>
+            </property>
+           </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QTableView" name="daneLekarzyTable"/>
         </item>
        </layout>
       </widget>
@@ -268,13 +274,6 @@ p, li { white-space: pre-wrap; }
            <widget class="QPushButton" name="otworzKatalogButton">
             <property name="text">
              <string>Otwórz katalog</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="odswiezTemplatkiButton">
-            <property name="text">
-             <string>Odśwież</string>
             </property>
            </widget>
           </item>
