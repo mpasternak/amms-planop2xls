@@ -85,3 +85,10 @@ def test_zapisz_xls(mock, qtbot, program, tmpdir):
     t = xlrd.open_workbook(fn.resolve())
     sheets = t.sheet_names()
     assert (len(list(sheets)) == 1)
+
+def test_dodaj_pacjenta_generuj_wydruki(qtbot, program):
+    """
+    :type program: :class:`amms_planop2xls.amms_planop2xls.AMMSPlanOp2XLS`
+    """
+    qtbot.mouseClick(program.dodajPacjentaButton, QtCore.Qt.LeftButton)
+    qtbot.mouseClick(program.generujWydrukiButton, QtCore.Qt.LeftButton)

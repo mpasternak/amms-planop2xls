@@ -177,7 +177,11 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             dct = {}
             for col_no in range(11):
                 value = self.danePacjentowTable.item(row_no, col_no)
-                dct[header[col_no]] = value.text()
+                if value is None:
+                    text = ''
+                else:
+                    text = value.text()
+                dct[header[col_no]] = text
             pacjenci.append(dct)
 
         from secretary import Renderer
