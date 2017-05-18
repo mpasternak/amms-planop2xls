@@ -197,14 +197,12 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                     data=self.data,
                     dzien_przed=oblicz_dzien_przed(self.data),
                     wersja=__version__)
-                
+
             except Exception as e:
                 import traceback
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 exception = "".join(traceback.format_exception(
                     exc_type, exc_value, exc_traceback, limit=3))
-
-                print(exception)
 
                 QtWidgets.QMessageBox.critical(
                     None,
@@ -362,7 +360,6 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                 self.danePacjentowTable.setItem(row_idx, col_idx,
                                                 QtWidgets.QTableWidgetItem(
                                                     cell_obj.value))
-                print(row_idx, col_idx, cell_obj.value)
 
     def zapiszXLS(self, fn):
         book = xlwt.Workbook(encoding="utf-8")
