@@ -11,8 +11,10 @@ import xlrd
 import xlwt
 from PyQt5 import QtWidgets, QtCore
 
+from . import __version__
 from .mainwindow_ui import Ui_MainWindow
 from .storage import get_db, get_model, oddzial_dla_lekarza
+from .util import oblicz_dzien_przed
 from .util import pobierz_plan, datadir
 
 QFileDialog_platform_kwargs = {}
@@ -189,7 +191,13 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
 
         for fp in fns:
             try:
-                result = engine.render(fp, pacjenci=pacjenci, data=self.data)
+                result = engine.render(
+                    fp,
+                    pacjenci=pacjenci,
+                    data=self.data,
+                    dzien_przed=oblicz_dzien_przed(self.data),
+                    wersja=__version__)
+                
             except Exception as e:
                 import traceback
                 exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -354,7 +362,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                 self.danePacjentowTable.setItem(row_idx, col_idx,
                                                 QtWidgets.QTableWidgetItem(
                                                     cell_obj.value))
-                print (row_idx, col_idx, cell_obj.value)
+                print(row_idx, col_idx, cell_obj.value)
 
     def zapiszXLS(self, fn):
         book = xlwt.Workbook(encoding="utf-8")

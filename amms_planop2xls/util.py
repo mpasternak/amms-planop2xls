@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import re
+from datetime import datetime, timedelta
 from pathlib import Path
 from shutil import copy
 
@@ -80,3 +81,12 @@ def pobierz_plan(fn):
                 row[10]
             ])
     return data_zabiegu, tabela
+
+
+FORMAT_DATY = "%d.%m.%Y"
+
+
+def oblicz_dzien_przed(data):
+    data = datetime.strptime(data, FORMAT_DATY)
+    data = data - timedelta(days=1)
+    return data.strftime(FORMAT_DATY)
