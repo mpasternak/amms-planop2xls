@@ -8,8 +8,8 @@ def test_datadir():
     assert d is not None
 
 
-def test_pobierz_plan(test_pdf_filename):
-    p = util.pobierz_plan(test_pdf_filename)
+def test_pobierz_plan(pdf_filename):
+    p = util.pobierz_plan(pdf_filename)
     assert len(p) == 2
 
 
