@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import os
-import platform
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
 import xlrd
+import secretary
 import xlwt
 from PyQt5 import QtWidgets, QtCore
 
@@ -15,22 +15,12 @@ from . import __version__
 from .mainwindow_ui import Ui_MainWindow
 from .storage import get_db, get_model, oddzial_dla_lekarza
 from .util import oblicz_dzien_przed
-from .util import pobierz_plan, datadir
+from .util import pobierz_plan, datadir, open_file
 
 QFileDialog_platform_kwargs = {}
 if sys.platform == 'darwin':
     QFileDialog_platform_kwargs = dict(
         options=QtWidgets.QFileDialog.DontUseNativeDialog)
-
-
-def open_file(path):
-    if platform.system() == "Windows":
-        os.startfile(path)
-    elif platform.system() == "Darwin":
-        subprocess.Popen(["open", path])
-    else:
-        subprocess.Popen(["xdg-open", path])
-
 
 class AMMSPlanOp2XLS(Ui_MainWindow):
     def __init__(self, win):
@@ -179,15 +169,14 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             dct = {}
             for col_no in range(11):
                 value = self.danePacjentowTable.item(row_no, col_no)
-                if value is None:
-                    text = ''
-                else:
+                text = ''
+                if hasattr(value, "text"):
                     text = value.text()
                 dct[header[col_no]] = text
             pacjenci.append(dct)
 
-        from secretary import Renderer
-        engine = Renderer()
+
+        engine = secretary.Renderer()
 
         for fp in fns:
             try:
@@ -349,17 +338,17 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
 
         self.wyczyscDanePacjentowZTabeli()
 
-        num_cols = xl_sheet.ncols  # Number of columns
-        for row_idx in range(0, xl_sheet.nrows):  # Iterate through rows
+        num_cols = xl_sheet.ncols
+        for row_idx in range(0, xl_sheet.nrows):
             self.danePacjentowTable.insertRow(
                 self.danePacjentowTable.rowCount())
 
-            for col_idx in range(0, num_cols):  # Iterate through columns
-                cell_obj = xl_sheet.cell(row_idx,
-                                         col_idx)  # Get cell object by row, col
-                self.danePacjentowTable.setItem(row_idx, col_idx,
-                                                QtWidgets.QTableWidgetItem(
-                                                    cell_obj.value))
+            for col_idx in range(0, num_cols):
+                cell_obj = xl_sheet.cell(row_idx, col_idx)
+                self.danePacjentowTable.setItem(
+                    row_idx, col_idx,
+                    QtWidgets.QTableWidgetItem(cell_obj.value)
+                )
 
     def zapiszXLS(self, fn):
         book = xlwt.Workbook(encoding="utf-8")
@@ -368,7 +357,10 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         for row_no in range(self.danePacjentowTable.rowCount()):
             for col_no in range(11):
                 value = self.danePacjentowTable.item(row_no, col_no)
-                sheet.write(row_no, col_no, value.text())
+                text = ''
+                if hasattr(value, "text"):
+                    text = value.text()
+                sheet.write(row_no, col_no, text)
 
         output = open(fn, "wb")
         book.save(output)
