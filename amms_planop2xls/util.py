@@ -1,6 +1,9 @@
 # -*- encoding: utf-8 -*-
 
+import os
+import platform
 import re
+import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 from shutil import copy
@@ -87,6 +90,18 @@ FORMAT_DATY = "%d.%m.%Y"
 
 
 def oblicz_dzien_przed(data):
-    data = datetime.strptime(data, FORMAT_DATY)
+    try:
+        data = datetime.strptime(data, FORMAT_DATY)
+    except ValueError:
+        data = datetime.now().date()
     data = data - timedelta(days=1)
     return data.strftime(FORMAT_DATY)
+
+
+def open_file(path):
+    if platform.system() == "Windows":
+        os.startfile(path)
+    elif platform.system() == "Darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
