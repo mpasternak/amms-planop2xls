@@ -47,13 +47,13 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             QtCore.QCoreApplication.exit(-1)
             return
 
-        self.model = get_model(self.window, self.db)
-        self.daneLekarzyTable.setModel(self.model)
+        self.daneLekarzyModel = get_model(self.window, self.db)
+        self.daneLekarzyTable.setModel(self.daneLekarzyModel)
         self.daneLekarzyTable.hideColumn(0)
         self.daneLekarzyTable.setSelectionBehavior(
             QtWidgets.QAbstractItemView.SelectRows)
 
-        self.model.dataChanged.connect(self.uzupelnijLekarzy)
+        self.daneLekarzyModel.dataChanged.connect(self.uzupelnijLekarzy)
 
         self.dodajPrzypisanieButton.clicked.connect(self.dodajLekarza)
         self.usunPrzypisanieButton.clicked.connect(self.usunLekarza)
@@ -154,6 +154,20 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             fp = self.templatkiModel.filePath(idx)
             fns.add(fp)
 
+        if not fns:
+            QtWidgets.QMessageBox.warning(
+                None,
+                "Hola, hola",
+                "Nie zaznaczyłeś żadnego pliku wzorcowego (templatki).")
+            return
+
+        if self.danePacjentowTable.rowCount() < 1:
+            QtWidgets.QMessageBox.warning(
+                None,
+                "Hola, hola",
+                "Twój plan operacji nie zawiera żadnych zabiegów.")
+            return
+
         header = []
         for col_no in range(11):
             value = self.danePacjentowTable.horizontalHeaderItem(
@@ -209,17 +223,18 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             open_file(pathname)
 
     def odswiezPrzypisania(self):
+        self.daneLekarzyModel.select()
         self.daneLekarzyTable.resizeColumnsToContents()
         self.daneLekarzyTable.repaint()
 
     def dodajLekarza(self):
-        self.model.insertRows(self.model.rowCount(), 1)
+        self.daneLekarzyModel.insertRows(self.daneLekarzyModel.rowCount(), 1)
 
     def usunLekarza(self):
         rows = set([x.row() for x in self.daneLekarzyTable.selectedIndexes()])
         for unique_row in rows:
-            self.model.removeRow(unique_row)
-        self.model.select()
+            self.daneLekarzyModel.removeRow(unique_row)
+        self.daneLekarzyModel.select()
 
     def importujPDFDialog(self):
         fn = QtWidgets.QFileDialog.getOpenFileName(
@@ -247,7 +262,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
     def importujPDF(self, fn):
         data, tabela = pobierz_plan(fn)
         self.data = data
-        self.danePacjentowTable.clearContents()
+        self.wyczyscDanePacjentowZTabeli()
         for row_no, row in enumerate(tabela):
             self.danePacjentowTable.insertRow(row_no)
             for col_no, col in enumerate(row):
