@@ -262,9 +262,9 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
     def uzupelnijLekarzy(self):
         for row_no in range(self.danePacjentowTable.rowCount()):
             item = self.danePacjentowTable.item(row_no, 9)
-            text = item.text()
-            if not text:
-                continue
+            text = ''
+            if hasattr(item, "text"):
+                text = item.text()
             try:
                 lekarz = text.split(", ")[0].strip()
             except IndexError:
