@@ -48,6 +48,9 @@ def db_error(query):
 
 
 def oddzial_dla_lekarza(db, lekarz, insert_if_not_exists=True):
+    if lekarz is None or lekarz.strip() == '':
+        return ''
+
     query = QtSql.QSqlQuery(db)
     query.prepare("SELECT oddzial FROM lekarze_v0 WHERE lekarz=:val")
     query.bindValue(":val", lekarz)
