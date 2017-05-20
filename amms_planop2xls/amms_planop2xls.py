@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
 
-import xlrd
 import secretary
+import xlrd
 import xlwt
 from PyQt5 import QtWidgets, QtCore
 
@@ -21,6 +20,7 @@ QFileDialog_platform_kwargs = {}
 if sys.platform == 'darwin':
     QFileDialog_platform_kwargs = dict(
         options=QtWidgets.QFileDialog.DontUseNativeDialog)
+
 
 class AMMSPlanOp2XLS(Ui_MainWindow):
     def __init__(self, win):
@@ -174,7 +174,6 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                     text = value.text()
                 dct[header[col_no]] = text
             pacjenci.append(dct)
-
 
         engine = secretary.Renderer()
 

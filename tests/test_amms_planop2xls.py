@@ -100,6 +100,7 @@ def test_wczytaj_xls_wybierz_plik_docelowy(mock, program):
     program.wczytajXLSWybierzPlikZrodlowy()
     critical.assert_called_once()
 
+
 def test_wczytaj_xls(z_pacjentem, tmpdir):
     fn = Path(tmpdir) / "test.xls"
     path = fn.resolve()
