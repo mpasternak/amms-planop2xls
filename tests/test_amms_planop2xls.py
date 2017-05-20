@@ -127,6 +127,23 @@ def test_dodaj_pacjenta_generuj_wydruki(qtbot, z_pacjentem, mock,
     Renderer.assert_called_once()
 
 
+def test_dodaj_pacjenta_brak_plikow(qtbot, program, mock,
+                                    template_filename):
+    mock.patch.object(
+        program.templatkiTable, "selectedIndexes", return_value=[1, ])
+    mock.patch.object(
+        program.templatkiModel, "filePath", return_value=template_filename)
+    warning = mock.patch("PyQt5.QtWidgets.QMessageBox.warning")
+    qtbot.mouseClick(program.generujWydrukiButton, QtCore.Qt.LeftButton)
+    warning.assert_called_once()
+
+
+def test_dodaj_pacjenta_brak_pacjentow(qtbot, z_pacjentem, mock):
+    warning = mock.patch("PyQt5.QtWidgets.QMessageBox.warning")
+    qtbot.mouseClick(z_pacjentem.generujWydrukiButton, QtCore.Qt.LeftButton)
+    warning.assert_called_once()
+
+
 def test_wyczysc_pacjentow(qtbot, z_pacjentem, mock):
     """
     :type program: :class:`amms_planop2xls.amms_planop2xls.AMMSPlanOp2XLS`
