@@ -18,5 +18,5 @@ def test_oblicz_dzien_przed():
     assert util.oblicz_dzien_przed("1.01.2017") == "31.12.2016"
 
 
-def test_open_file():
-    util.open_file("test.pdf")
+def test_open_file(pdf_filename):
+    util.open_file(pdf_filename)
