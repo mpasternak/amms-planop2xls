@@ -47,7 +47,7 @@ def db_error(query):
     sys.exit(-1)
 
 
-def oddzial_dla_lekarza(db, lekarz, insert_if_not_exists=True):
+def oddzial_dla_lekarza(db, model, lekarz, insert_if_not_exists=True):
     if lekarz is None or lekarz.strip() == '':
         return ''
 
@@ -62,11 +62,18 @@ def oddzial_dla_lekarza(db, lekarz, insert_if_not_exists=True):
         return query.value(0)
 
     oddzial = "Ustaw oddział dla %s" % lekarz
-    query.prepare("INSERT INTO lekarze_v0(lekarz, oddzial) VALUES(:lekarz, "
-                  ":oddzial)")
-    query.bindValue(":lekarz", lekarz)
-    query.bindValue(":oddzial", oddzial)
-    res = query.exec_()
+
+    rec = QtSql.QSqlRecord()
+
+    field = QtSql.QSqlField("lekarz", QtCore.QVariant.String)
+    field.setValue(lekarz)
+    rec.append(field)
+
+    field = QtSql.QSqlField("oddzial", QtCore.QVariant.String)
+    field.setValue(oddzial)
+    rec.append(field)
+
+    res = model.insertRowIntoTable(rec)
     if not res:
         db_error(query)
     return oddzial

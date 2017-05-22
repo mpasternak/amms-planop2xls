@@ -223,7 +223,6 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             open_file(pathname)
 
     def odswiezPrzypisania(self):
-        self.daneLekarzyModel.select()
         self.daneLekarzyTable.resizeColumnsToContents()
         self.daneLekarzyTable.repaint()
 
@@ -284,7 +283,8 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                 lekarz = text.split(", ")[0].strip()
             except IndexError:
                 continue
-            oddzial = oddzial_dla_lekarza(self.db, lekarz)
+            oddzial = oddzial_dla_lekarza(self.db, self.daneLekarzyModel,
+                                          lekarz)
             if oddzial:
                 self.danePacjentowTable.setItem(
                     row_no, 1, QtWidgets.QTableWidgetItem(oddzial))
