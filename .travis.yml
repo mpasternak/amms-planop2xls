@@ -11,7 +11,7 @@ cache: pip
 python: 3.6
 
 install:
-  - pip install -U tox
+  - pip install -U tox coveralls
   - export TOXENV=py${TRAVIS_PYTHON_VERSION//./}
   - export DISPLAY=':99.0'
   - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
@@ -28,3 +28,6 @@ deploy:
     tags: true
     repo: mpasternak/amms-planop2xls
     condition: $TOXENV == py27
+
+after_success:
+  - coveralls
