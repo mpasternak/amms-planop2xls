@@ -19,7 +19,7 @@ test_requirements = reqs("requirements_dev.txt")
 
 setup(
     name='amms_planop2xls',
-    version='0.5.0',
+    version='0.6.0',
     description="Konwerter plików PDF z planem operacyjnym z systemu Asseco Medical Management Solutions",
     long_description=readme + '\n\n' + history,
     author="Michał Pasternak",
