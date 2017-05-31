@@ -12,7 +12,6 @@ from PyQt5 import QtWidgets, QtCore
 
 from . import __version__
 from .mainwindow_ui import Ui_MainWindow
-from .storage import get_db, get_model, oddzial_dla_lekarza
 from .util import oblicz_dzien_przed
 from .util import pobierz_plan, datadir, open_file
 
@@ -31,33 +30,6 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         self.importujPDFButton.clicked.connect(self.importujPDFDialog)
         self.zapiszXLSButton.clicked.connect(
             self.zapiszXLSWybierzPlikDocelowy)
-
-        #
-        # # Connect "add" button with a custom function (addInputTextToListbox)
-        # self.addBtn.clicked.connect(self.addInputTextToListbox)
-
-        # db
-        self.db = get_db()
-        if not self.db:
-            QtWidgets.QMessageBox.critical(
-                None,
-                "Błąd bazy danych",
-                "Nie można otworzyć bazy danych.",
-                QtWidgets.QMessageBox.Close)
-            QtCore.QCoreApplication.exit(-1)
-            return
-
-        self.daneLekarzyModel = get_model(self.window, self.db)
-        self.daneLekarzyTable.setModel(self.daneLekarzyModel)
-        self.daneLekarzyTable.hideColumn(0)
-        self.daneLekarzyTable.setSelectionBehavior(
-            QtWidgets.QAbstractItemView.SelectRows)
-
-        self.daneLekarzyModel.dataChanged.connect(self.uzupelnijLekarzy)
-
-        self.dodajPrzypisanieButton.clicked.connect(self.dodajLekarza)
-        self.usunPrzypisanieButton.clicked.connect(self.usunLekarza)
-        self.odswiezPrzypisaniaButton.clicked.connect(self.odswiezPrzypisania)
 
         # templatki
         self.templatkiModel = QtWidgets.QFileSystemModel()
@@ -222,19 +194,6 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             os.close(handle)
             open_file(pathname)
 
-    def odswiezPrzypisania(self):
-        self.daneLekarzyTable.resizeColumnsToContents()
-        self.daneLekarzyTable.repaint()
-
-    def dodajLekarza(self):
-        self.daneLekarzyModel.insertRows(self.daneLekarzyModel.rowCount(), 1)
-
-    def usunLekarza(self):
-        rows = set([x.row() for x in self.daneLekarzyTable.selectedIndexes()])
-        for unique_row in rows:
-            self.daneLekarzyModel.removeRow(unique_row)
-        self.daneLekarzyModel.select()
-
     def importujPDFDialog(self):
         fn = QtWidgets.QFileDialog.getOpenFileName(
             self.window, "Wybierz plik", QtCore.QDir.homePath(),
@@ -270,26 +229,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                 self.danePacjentowTable.setItem(
                     row_no, col_no, QtWidgets.QTableWidgetItem(col)
                 )
-        self.uzupelnijLekarzy()
         self.danePacjentowTable.resizeColumnsToContents()
-
-    def uzupelnijLekarzy(self):
-        for row_no in range(self.danePacjentowTable.rowCount()):
-            item = self.danePacjentowTable.item(row_no, 9)
-            text = ''
-            if hasattr(item, "text"):
-                text = item.text()
-            try:
-                lekarz = text.split(", ")[0].strip()
-            except IndexError:
-                continue
-            oddzial = oddzial_dla_lekarza(self.db, self.daneLekarzyModel,
-                                          lekarz)
-            if oddzial:
-                self.danePacjentowTable.setItem(
-                    row_no, 1, QtWidgets.QTableWidgetItem(oddzial))
-
-        self.odswiezPrzypisania()
 
     def zapiszXLSWybierzPlikDocelowy(self):
         fn = QtWidgets.QFileDialog.getSaveFileName(

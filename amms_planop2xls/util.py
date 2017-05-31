@@ -16,6 +16,10 @@ pacjent_regex = re.compile(
     r"(?P<imienazwisko>.*)\(PESEL: (?P<pesel>\d+), Nr KG: \d\d\d\d\/"
     r"(?P<nrkg>\d+)\)")
 
+new_pacjent_regex = re.compile(
+    r"(?P<imienazwisko>.*)\(PESEL: (?P<pesel>\d+), Nr KG: \d\d\d\d\/"
+    r"(?P<nrkg>\d+)\)\s+(?P<oddzial>.*)\s+od\s+\d\d\-")
+
 data_zabiegu_regex = re.compile(
     "Plan operacyjny: na dzień (?P<data>\d+\.\d+\.\d+) .*")
 
@@ -64,7 +68,13 @@ def pobierz_plan(fn):
             if not row[1]:
                 continue
 
-            m = pacjent_regex.match(row[4])
+            m = new_pacjent_regex.match(row[4])
+            if m is not None:
+                oddzial = m.group("oddzial").strip()
+            else:
+                # Fallback stara strategia, poprzedni regex
+                m = pacjent_regex.match(row[4])
+                oddzial = "Zaznacz WSZYSTKIE ptaszki przy wydruku"
 
             personel = row[-3].replace(" (OG)", ""). \
                 replace(" (AS)", ""). \
@@ -72,7 +82,7 @@ def pobierz_plan(fn):
 
             tabela.append([
                 aktualna_sala,
-                "",
+                oddzial,
                 data_zabiegu,
                 row[1],
                 m.group("imienazwisko").strip(),

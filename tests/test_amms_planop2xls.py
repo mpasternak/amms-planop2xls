@@ -5,8 +5,6 @@ from pathlib import Path
 import xlrd
 from PyQt5 import QtWidgets, QtCore
 
-from amms_planop2xls.amms_planop2xls import AMMSPlanOp2XLS
-
 
 def test_wczytaj_pdf_dialog(program, qtbot, mock):
     qfd = mock.patch("PyQt5.QtWidgets.QFileDialog")
@@ -20,20 +18,6 @@ def test_wczytaj_pdf(program, pdf_filename):
     program.importujPDF(pdf_filename)
 
 
-def test_dodaj_lekarza_test_usun_lekarza(program, qtbot, mock):
-    qtbot.mouseClick(program.dodajPrzypisanieButton, QtCore.Qt.LeftButton)
-    qtbot.mouseClick(program.usunPrzypisanieButton, QtCore.Qt.LeftButton)
-
-
-def test_storage(program):
-    from amms_planop2xls.storage import get_db, get_model
-
-    db = get_db()
-    assert db is not False
-    model = get_model(program.window, db)
-    model.select()
-
-
 def test_pobierz_plan(pdf_filename):
     from amms_planop2xls.util import pobierz_plan
 
@@ -42,16 +26,6 @@ def test_pobierz_plan(pdf_filename):
     assert dane[0][0] == "A"
     assert dane[0][2] == "28.04.2017"
     assert dane[0][4] == "Jan Nowak"
-
-
-def test_main_window_getdb_failure(mock, qtbot):
-    critical = mock.patch("PyQt5.QtWidgets.QMessageBox.critical")
-    get_db = mock.patch("amms_planop2xls.amms_planop2xls.get_db",
-                        return_value=False)
-
-    AMMSPlanOp2XLS(QtWidgets.QMainWindow())
-    get_db.assert_called_once()
-    critical.assert_called_once()
 
 
 def test_wczytaj_pdf_dialog_failure(mock, qtbot, program):
