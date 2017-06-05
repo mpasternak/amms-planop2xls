@@ -24,7 +24,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
@@ -46,7 +46,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;1. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Plan operacji&lt;/span&gt;&lt;/a&gt;&amp;quot; aby zaimportować dane z PDF z planem operacyjnym. Plan po zaimportowaniu lub wczytaniu dane można edytować - wystarczy kliknąć w komórkę tabeli. &lt;span style=&quot; font-weight:600; text-decoration: underline; color:#ff0000;&quot;&gt;UWAGA: aby poprawnie zaciągnąć dane z AMMS, wybierz opcję drukowania planu operacyjnego i zaznacz &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; text-decoration: underline; color:#ff0000;&quot;&gt;wszystkie&lt;/span&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline; color:#ff0000;&quot;&gt; pola typu checkbox (&amp;quot;ptaszki&amp;quot;) w parametrach drukowania. Tak przygotowany plan operacyjny powinien mieć po 10 kolumn na każdą tabelę z salą operacyjną w pliku PDF. &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://3&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wydruki&lt;/span&gt;&lt;/a&gt;&amp;quot; aby wygenerować dokumenty w formacie ODT, otwieranym przez &lt;a href=&quot;http://www.libreoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;LibreOffice&lt;/span&gt;&lt;/a&gt; lub &lt;a href=&quot;https://www.openoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;OpenOffice&lt;/span&gt;&lt;/a&gt;. Możesz zaznaczyć kilka plików na raz. &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;2. Skorzystaj z zakładki &amp;quot;&lt;a href=&quot;tab://2&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Wydruki&lt;/span&gt;&lt;/a&gt;&amp;quot; aby wygenerować dokumenty w formacie ODT, otwieranym przez &lt;a href=&quot;http://www.libreoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;LibreOffice&lt;/span&gt;&lt;/a&gt; lub &lt;a href=&quot;https://www.openoffice.org&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;OpenOffice&lt;/span&gt;&lt;/a&gt;. Możesz zaznaczyć kilka plików na raz. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Problemy, błędy, utrudnienia, pytania? Zgłoś zapytanie prze &lt;a href=&quot;https://github.com/mpasternak/amms-planop2xls/issues&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;issue tracker na GitHub&lt;/span&gt;&lt;/a&gt;. &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
@@ -145,6 +145,12 @@ p, li { white-space: pre-wrap; }
         </item>
         <item>
          <widget class="QTableWidget" name="danePacjentowTable">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
           <column>
            <property name="text">
             <string>Sala</string>
@@ -198,6 +204,11 @@ p, li { white-space: pre-wrap; }
           <column>
            <property name="text">
             <string>Zabieg</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Znieczulenie</string>
            </property>
           </column>
          </widget>
