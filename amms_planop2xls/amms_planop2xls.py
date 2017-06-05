@@ -226,7 +226,6 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             finally:
                 self.window.setCursor(QtCore.Qt.ArrowCursor)
 
-
     def importujPDF(self, fn):
         data, tabela = pobierz_plan(fn)
         self.data = data
@@ -356,7 +355,6 @@ def entry_point():
     app.setWindowIcon(icon)
     prog = AMMSPlanOp2XLS(win)
     win.show()
-
 
     if len(sys.argv) > 1 and sys.argv[1]:
         prog.importujPDF(sys.argv[1])
