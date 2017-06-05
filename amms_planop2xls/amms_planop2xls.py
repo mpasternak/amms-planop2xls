@@ -141,7 +141,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             return
 
         header = []
-        for col_no in range(11):
+        for col_no in range(12):
             value = self.danePacjentowTable.horizontalHeaderItem(
                 col_no).text()
             value = value.replace(" ", "_")
@@ -153,7 +153,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         pacjenci = []
         for row_no in range(self.danePacjentowTable.rowCount()):
             dct = {}
-            for col_no in range(11):
+            for col_no in range(12):
                 value = self.danePacjentowTable.item(row_no, col_no)
                 text = ''
                 if hasattr(value, "text"):
@@ -195,14 +195,21 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             open_file(pathname)
 
     def importujPDFDialog(self):
+        path = QtCore.QStandardPaths.locate(
+            QtCore.QStandardPaths.DownloadLocation, "",
+            QtCore.QStandardPaths.LocateDirectory)
+
         fn = QtWidgets.QFileDialog.getOpenFileName(
-            self.window, "Wybierz plik", QtCore.QDir.homePath(),
+            self.window, "Wybierz plik", path,
             "Pliki PDF (*.pdf);;Wszystkie pliki (*)",
             **QFileDialog_platform_kwargs)
         if fn[0]:
             try:
+                self.window.setCursor(QtCore.Qt.WaitCursor)
                 self.importujPDF(fn[0])
             except Exception as e:
+                self.window.setCursor(QtCore.Qt.ArrowCursor)
+
                 import traceback
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 exception = "".join(traceback.format_exception(
@@ -216,6 +223,9 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                     "oprogramowania na adres e-mail wraz z plikiem PDF, "
                     "który wywołał błąd.\n\n"
                     "%s" % exception)
+            finally:
+                self.window.setCursor(QtCore.Qt.ArrowCursor)
+
 
     def importujPDF(self, fn):
         data, tabela = pobierz_plan(fn)
@@ -231,9 +241,16 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                 )
         self.danePacjentowTable.resizeColumnsToContents()
 
+    def documentPath(self):
+        path = QtCore.QStandardPaths.locate(
+            QtCore.QStandardPaths.DocumentsLocation, "",
+            QtCore.QStandardPaths.LocateDirectory)
+
+        return path
+
     def zapiszXLSWybierzPlikDocelowy(self):
         fn = QtWidgets.QFileDialog.getSaveFileName(
-            self.window, "Wybierz plik docelowy", QtCore.QDir.homePath(),
+            self.window, "Wybierz plik docelowy", self.documentPath(),
             "Pliki XLS (*.xls)",
             **QFileDialog_platform_kwargs)
         if fn[0]:
@@ -262,8 +279,8 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
 
     def wczytajXLSWybierzPlikZrodlowy(self):
         fn = QtWidgets.QFileDialog.getOpenFileName(
-            self.window, "Wybierz plik wejściowy", QtCore.QDir.homePath(),
-            "Pliki XLS (*.xls)",
+            self.window, "Wybierz plik wejściowy",
+            self.documentPath(), "Pliki XLS (*.xls)",
             **QFileDialog_platform_kwargs)
         if fn[0]:
             try:
@@ -309,7 +326,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
 
         sheet = book.add_sheet("Zabiegi dnia %s" % self.data)
         for row_no in range(self.danePacjentowTable.rowCount()):
-            for col_no in range(11):
+            for col_no in range(12):
                 value = self.danePacjentowTable.item(row_no, col_no)
                 text = ''
                 if hasattr(value, "text"):
@@ -323,6 +340,13 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
 
 def entry_point():
     app = QtWidgets.QApplication(sys.argv)
+
+    qtranslator = QtCore.QTranslator()
+    translations_path = QtCore.QLibraryInfo.location(
+        QtCore.QLibraryInfo.TranslationsPath)
+    qtranslator.load("qtbase_pl", translations_path)
+
+    app.installTranslator(qtranslator)
     win = QtWidgets.QMainWindow()
     prog = AMMSPlanOp2XLS(win)
     win.show()
