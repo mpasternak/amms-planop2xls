@@ -8,7 +8,7 @@ from pathlib import Path
 import secretary
 import xlrd
 import xlwt
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 
 from . import __version__
 from .mainwindow_ui import Ui_MainWindow
@@ -348,8 +348,15 @@ def entry_point():
 
     app.installTranslator(qtranslator)
     win = QtWidgets.QMainWindow()
+    icon_path = (Path(__file__) / ".." / "amms-planop2xls.svg").resolve()
+    print(str(icon_path))
+    icon = QtGui.QIcon(str(icon_path))
+    print(icon)
+    win.setWindowIcon(icon)
+    app.setWindowIcon(icon)
     prog = AMMSPlanOp2XLS(win)
     win.show()
+
 
     if len(sys.argv) > 1 and sys.argv[1]:
         prog.importujPDF(sys.argv[1])
