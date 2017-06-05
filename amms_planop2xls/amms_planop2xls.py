@@ -75,8 +75,8 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
 
     def wyczyscPacjentow(self):
         res = QtWidgets.QMessageBox.question(
-            None, "Potwierdź", "Czy na pewno wyczyścić dane planu "
-                               "operacyjnego?")
+            None, "Potwierdź",
+            "Czy na pewno wyczyścić dane planu operacyjnego?")
 
         if res == QtWidgets.QMessageBox.Yes:
             self.wyczyscDanePacjentowZTabeli()
@@ -172,7 +172,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
                     dzien_przed=oblicz_dzien_przed(self.data),
                     wersja=__version__)
 
-            except Exception as e:
+            except Exception:
                 import traceback
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 exception = "".join(traceback.format_exception(
@@ -207,7 +207,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
             try:
                 self.window.setCursor(QtCore.Qt.WaitCursor)
                 self.importujPDF(fn[0])
-            except Exception as e:
+            except Exception:
                 self.window.setCursor(QtCore.Qt.ArrowCursor)
 
                 import traceback
@@ -255,7 +255,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         if fn[0]:
             try:
                 self.zapiszXLS(fn[0])
-            except Exception as e:
+            except Exception:
                 import traceback
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 exception = "".join(traceback.format_exception(
@@ -284,7 +284,7 @@ class AMMSPlanOp2XLS(Ui_MainWindow):
         if fn[0]:
             try:
                 self.wczytajXLS(fn[0])
-            except Exception as e:
+            except Exception:
                 import traceback
                 exc_type, exc_value, exc_traceback = sys.exc_info()
                 exception = "".join(traceback.format_exception(
