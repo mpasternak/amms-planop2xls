@@ -1,6 +1,3 @@
-===============
-AMMS PlanOp2XLS
-===============
 
 
 .. image:: https://img.shields.io/pypi/v/amms_planop2xls.svg
@@ -22,9 +19,17 @@ AMMS PlanOp2XLS
      :alt: AppVeyor build status
 
 
+===============
+AMMS PlanOp2XLS
+===============
+
+.. image:: https://raw.githubusercontent.com/mpasternak/amms-planop2xls/master/amms_planop2xls/amms-planop2xls.png
+     :target: http://iplweb.pl/
+
+
 Konwerter plików PDF z planem operacyjnym z systemu Asseco Medical Management Solutions.
 
-Program jest niezależnym projektem firmy IPL i nie jest w żaden sposób wspierany lub związany z firmą Asseco. 
+Program jest niezależnym projektem firmy IPL i nie jest w żaden sposób wspierany lub związany z firmą Asseco.
 
 * otwarte oprogramowanie: licencja MIT
 * dokumentacja: https://amms-planop2xls.readthedocs.io.
@@ -34,9 +39,9 @@ Pobierz binarną wersję programu dla systemu operacyjnego Windows (od wersji 7)
 Możliwości programu
 -------------------
 
-* generowanie plików ODT (OpenOffice, LibreOffice) według schematów, 
-* importowanie danych z plików PDF z planem operacyjnym generowanym przez system AMMS, 
-* prosta edycja danych planu operacyjnego oraz przypisań lekarzy. 
+* generowanie plików ODT (OpenOffice, LibreOffice) według schematów,
+* importowanie danych z plików PDF z planem operacyjnym generowanym przez system AMMS,
+* prosta edycja danych planu operacyjnego oraz przypisań lekarzy.
 
 Credits
 ---------
@@ -45,4 +50,3 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
-
