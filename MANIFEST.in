@@ -6,8 +6,8 @@ include HISTORY.rst
 include LICENSE
 include README.rst
 
+recursive-include amms_planop2xls *.svg *.png
 include amms_planop2xls/data/*odt
-include amms_planop2xls *.svg *.png
 
 recursive-include tests *
 recursive-exclude * __pycache__
