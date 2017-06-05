@@ -147,9 +147,9 @@ def test_dodaj_usun_pacjenta(qtbot, program, mock):
 
 
 def test_browser_clicked(qtbot, program, mock):
-    assert program.tabWidget.currentIndex() == 0
-    program.browserClicked(QtCore.QUrl("tab://1"))
     assert program.tabWidget.currentIndex() == 1
+    program.browserClicked(QtCore.QUrl("tab://2"))
+    assert program.tabWidget.currentIndex() == 2
 
     open = mock.patch("webbrowser.open")
     program.browserClicked(QtCore.QUrl("http://openoffice.org"))
