@@ -28,15 +28,15 @@ Management Solutions.
 AMMS-PlanOp2XLS to otwarte oprogramowanie: licencja MIT. Oznacza to, iż jest
 dostępne za darmo.
 
-Program w wersji binarnej stabilnej 0.7.3 można pobrać na dwa sposoby:
+Program w wersji binarnej stabilnej 0.7.5 można pobrać na dwa sposoby:
 
 * format ZIP: wersja bez instalatora, nie wymaga uprawnień administratorado
   instalacji, powinna działać z pendrive USB (78.6 MB)
 
 * format EXE: pełnoprawny instalator, wymaga uprawnień administratora (63.6 MB)
 
-Wersja 0.7.3 dostępna jest tutaj:
-https://github.com/mpasternak/amms-planop2xls/releases/tag/v0.7.3
+Wersja 0.7.5 dostępna jest tutaj:
+https://github.com/mpasternak/amms-planop2xls/releases/tag/v0.7.5
 
 Możliwości programu
 -------------------
