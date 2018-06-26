@@ -70,8 +70,8 @@ after_test:
   - "%CMD_IN_ENV% mkdir dist"
   - "%CMD_IN_ENV% move build\\nsis\\AMMS-PlanOp2XLS*exe dist"
   - "echo start /B Python\\python.exe AMMS-PlanOp2XLS.launch.pyw > build\\nsis\\AAA_KLIKNIJ_MNIE.bat"
-  - "%CMD_IN_ENV% move build\\nsis AMMS-PlanOp2XLS-0.7.3"
-  - "%CMD_IN_ENV% 7z a AMMS-PlanOp2XLS-0.7.3.zip AMMS-PlanOp2XLS-0.7.3"
+  - "%CMD_IN_ENV% move build\\nsis AMMS-PlanOp2XLS-0.7.5"
+  - "%CMD_IN_ENV% 7z a AMMS-PlanOp2XLS-0.7.5.zip AMMS-PlanOp2XLS-0.7.5"
 
 artifacts:
   # Archive the generated packages in the ci.appveyor.com build report.
@@ -83,7 +83,7 @@ artifacts:
 #
 
 deploy:
-  release: AMMS-PlanOp2XLS-0.7.3-v$(appveyor_build_version)
+  release: AMMS-PlanOp2XLS-0.7.5-v$(appveyor_build_version)
   description: 'Wersja dla Windows'
   provider: GitHub
   auth_token:
