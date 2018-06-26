@@ -13,12 +13,8 @@ from drunken_child_in_the_fog.core import DrunkenChildInTheFog
 from pdf_table_extractor.pdf_table_extractor import extract_table_data
 
 pacjent_regex = re.compile(
-    r"(?P<imienazwisko>.*)\(PESEL: (?P<pesel>\d+), Nr KG: \d\d\d\d\/"
-    r"(?P<nrkg>\d+)\)")
-
-new_pacjent_regex = re.compile(
-    r"(?P<imienazwisko>.*)\(PESEL: (?P<pesel>\d+), Nr KG: \d\d\d\d\/"
-    r"(?P<nrkg>\d+)\)\s+(?P<oddzial>.*)\s+od\s+\d\d\-")
+    r"(?P<imienazwisko>.*)\s+\((PESEL: (?P<pesel>\d+)(, )?)?(Nr KG: \d\d\d\d\/"
+    r"(?P<nrkg>\d+))?\)(\s+(?P<oddzial>.*)\s+od\s+\d\d\-.*)?")
 
 data_zabiegu_regex = re.compile(
     "Plan operacyjny: na dzień (?P<data>\d+\.\d+\.\d+) .*")
@@ -68,13 +64,15 @@ def pobierz_plan(fn):
             if not row[1]:
                 continue
 
-            m = new_pacjent_regex.match(row[4])
+            oddzial = pesel = nrkg = ""
+            imienazwisko = row[4]
+
+            m = pacjent_regex.match(row[4])
             if m is not None:
-                oddzial = m.group("oddzial").strip()
-            else:
-                # Fallback stara strategia, poprzedni regex
-                m = pacjent_regex.match(row[4])
-                oddzial = "Zaznacz WSZYSTKIE ptaszki przy wydruku"
+                oddzial = m.group("oddzial") or ""
+                imienazwisko = m.group("imienazwisko") or ""
+                pesel = m.group("pesel") or ""
+                nrkg = m.group("nrkg") or ""
 
             personel = row[-3].replace(" (OG)", ""). \
                 replace(" (AS)", ""). \
@@ -85,9 +83,9 @@ def pobierz_plan(fn):
                 oddzial,
                 data_zabiegu,
                 row[1],
-                m.group("imienazwisko").strip(),
-                m.group("pesel").strip(),
-                m.group("nrkg").strip(),
+                imienazwisko.strip(),
+                pesel.strip(),
+                nrkg.strip(),
                 row[5],
                 row[6],
                 ", ".join(personel),
