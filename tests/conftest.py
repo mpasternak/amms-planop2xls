@@ -11,6 +11,11 @@ def pdf_filename():
 
 
 @pytest.fixture
+def bad_pdf_filename():
+    return os.path.join(os.path.dirname(__file__), "test-braki.pdf")
+
+
+@pytest.fixture
 def template_filename():
     return os.path.join(os.path.dirname(__file__), "test_template.odt")
 
