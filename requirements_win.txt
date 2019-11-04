@@ -68,7 +68,7 @@ whichcraft==0.4.1
 xlrd==1.0.0
 xlwt==1.2.0
 pynsist==1.12
-requests==2.14.2 
+requests==2.20.0 
 requests-download==0.1.1 
 win-cli-launchers==0.1 
 yarg==0.1.9
