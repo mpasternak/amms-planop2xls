@@ -12,7 +12,7 @@ chardet==3.0.2
 click==6.7
 cookiecutter==1.5.1
 coverage==4.1
-cryptography==1.8.1
+cryptography==3.2
 cx-Freeze==5.0.1
 decorator==4.0.11
 docopt==0.6.2
