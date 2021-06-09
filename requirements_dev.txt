@@ -1,6 +1,6 @@
 pyqt_distutils==0.7.2
 pynsist==1.12
-pip==10.0.1
+pip==19.2
 bumpversion==0.5.3
 wheel==0.29.0
 watchdog==0.8.3
