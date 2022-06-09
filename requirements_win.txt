@@ -10,7 +10,7 @@ bumpversion==0.5.3
 cffi==1.10.0
 chardet==3.0.2
 click==6.7
-cookiecutter==1.5.1
+cookiecutter==2.1.1
 coverage==4.1
 cryptography==1.8.1
 cx-Freeze==5.0.1
